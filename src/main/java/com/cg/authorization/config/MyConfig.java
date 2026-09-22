@@ -28,7 +28,10 @@ public class MyConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) {
 		httpSecurity.csrf(custom->custom.disable());
-		httpSecurity.authorizeHttpRequests(request->request.anyRequest().authenticated());
+		httpSecurity.authorizeHttpRequests(request->request
+									.requestMatchers("/auth/add")
+									.permitAll()
+									.anyRequest().authenticated());
 		httpSecurity.httpBasic(Customizer.withDefaults());
 		httpSecurity.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		return httpSecurity.build();
