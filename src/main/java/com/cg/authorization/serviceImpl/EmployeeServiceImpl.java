@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cg.authorization.entity.Employee;
@@ -16,8 +17,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	EmployeeRepo repo;
 	
+	BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
+	
 	@Override
 	public Employee save(Employee emp) {
+		emp.setPassword(encoder.encode(emp.getPassword()));
 		return repo.save(emp);
 	}
 
