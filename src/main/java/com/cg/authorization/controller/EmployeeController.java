@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +28,9 @@ public class EmployeeController {
 	
 	@Autowired
 	EmployeeService service;
+	
+	@Autowired
+	AuthenticationManager authenticationManager;
 		
 	@GetMapping("/getAll")
 	public List<Employee> getAll(){ 
@@ -36,9 +42,21 @@ public class EmployeeController {
 		return service.getById(id);
 	}
 	
-	@PostMapping("/add")  
+	@PostMapping("/save")  
 	public Employee addEmployee(@RequestBody Employee employee) {
 		return service.save(employee);
+	}
+	
+	@PostMapping("/login")  
+	public String login(@RequestBody Employee emp) {
+		Authentication auth=authenticationManager
+		.authenticate(new UsernamePasswordAuthenticationToken(emp.getUsername(), emp.getPassword()));
+		if(auth.isAuthenticated())
+			return "Succes";
+		else
+		return "Failure";
+			
+		
 	}
 	
 	@GetMapping("token")

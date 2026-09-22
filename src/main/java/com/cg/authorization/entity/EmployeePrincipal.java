@@ -33,7 +33,7 @@ public class EmployeePrincipal implements UserDetails {
 	@Override
 	public String getUsername() {
 	
-		return emp.getName();
+		return emp.getUsername();
 	}
 
 }

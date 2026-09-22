@@ -18,9 +18,6 @@ public class Employee {
 	private String password;
 	private Role role;
 	
-	
-	
-	
 	public Role getRole() {
 		return role;
 	}
@@ -33,11 +30,13 @@ public class Employee {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getName() {
+
+	
+	public String getUsername() {
 		return username;
 	}
-	public void setName(String name) {
-		this.username = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getPassword() {
 		return password;
