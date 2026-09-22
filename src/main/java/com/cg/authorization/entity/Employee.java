@@ -14,7 +14,7 @@ public class Employee {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String name;
+	private String username;
 	private String password;
 	private Role role;
 	
@@ -34,10 +34,10 @@ public class Employee {
 		this.id = id;
 	}
 	public String getName() {
-		return name;
+		return username;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.username = name;
 	}
 	public String getPassword() {
 		return password;
