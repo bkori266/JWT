@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.authorization.entity.Employee;
 import com.cg.authorization.service.EmployeeService;
+import com.cg.authorization.serviceImpl.JwtService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -28,6 +29,9 @@ public class EmployeeController {
 	
 	@Autowired
 	EmployeeService service;
+	
+	@Autowired
+	JwtService jwtService;
 	
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -42,7 +46,7 @@ public class EmployeeController {
 		return service.getById(id);
 	}
 	
-	@PostMapping("/save")
+	@PostMapping("/register")
 	public Employee addEmployee(@RequestBody Employee employee) {
 		return service.save(employee);
 	}
@@ -52,7 +56,7 @@ public class EmployeeController {
 		Authentication auth=authenticationManager
 		.authenticate(new UsernamePasswordAuthenticationToken(emp.getUsername(), emp.getPassword()));
 		if(auth.isAuthenticated())
-			return "Succes";
+			return jwtService.generateToken(emp.getUsername());
 		else
 		return "Failure";
 	

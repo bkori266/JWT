@@ -31,7 +31,6 @@ public class Employee {
 		this.id = id;
 	}
 
-	
 	public String getUsername() {
 		return username;
 	}
