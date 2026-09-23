@@ -42,7 +42,7 @@ public class EmployeeController {
 		return service.getById(id);
 	}
 	
-	@PostMapping("/save")  
+	@PostMapping("/save")
 	public Employee addEmployee(@RequestBody Employee employee) {
 		return service.save(employee);
 	}
@@ -55,8 +55,7 @@ public class EmployeeController {
 			return "Succes";
 		else
 		return "Failure";
-			
-		
+	
 	}
 	
 	@GetMapping("token")
