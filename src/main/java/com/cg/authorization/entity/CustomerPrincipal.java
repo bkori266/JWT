@@ -9,13 +9,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-public class EmployeePrincipal implements UserDetails {
+public class CustomerPrincipal implements UserDetails {
 
 	
-	private Employee emp;
+	private Customer customer;
 	
-	public EmployeePrincipal(Employee emp) {
-		this.emp=emp;
+	public CustomerPrincipal(Customer customer) {
+		this.customer=customer;
 	}
 	
 	@Override
@@ -27,13 +27,13 @@ public class EmployeePrincipal implements UserDetails {
 	@Override
 	public @Nullable String getPassword() {
 		
-		return emp.getPassword();
+		return customer.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
 	
-		return emp.getUsername();
+		return customer.getUsername();
 	}
 
 }

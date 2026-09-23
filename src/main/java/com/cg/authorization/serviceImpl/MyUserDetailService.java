@@ -5,27 +5,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import com.cg.authorization.entity.Employee;
-import com.cg.authorization.entity.EmployeePrincipal;
-import com.cg.authorization.repo.EmployeeRepo;
+import com.cg.authorization.entity.Customer;
+import com.cg.authorization.entity.CustomerPrincipal;
+import com.cg.authorization.repo.CustomerRepo;
 
 @Service
 public class MyUserDetailService implements UserDetailsService {
 
 	@Autowired
-	EmployeeRepo repo;
+	CustomerRepo repo;
 	
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Employee employee=repo.findByUsername(username);
-		if(employee==null) {
-			throw new RuntimeException("No Employee found");
+		Customer customer=repo.findByUsername(username);
+		if(customer==null) {
+			throw new RuntimeException("No Customer found");
 		}
 		
-		System.out.println(employee);
-		return new EmployeePrincipal(employee);
+		return new CustomerPrincipal(customer);
 	}
 
 }

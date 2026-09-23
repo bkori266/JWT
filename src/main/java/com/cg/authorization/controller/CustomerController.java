@@ -1,10 +1,7 @@
 package com.cg.authorization.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,18 +14,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cg.authorization.entity.Employee;
-import com.cg.authorization.service.EmployeeService;
+import com.cg.authorization.entity.Customer;
+import com.cg.authorization.service.CustomerService;
 import com.cg.authorization.serviceImpl.JwtService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
-public class EmployeeController {
+public class CustomerController {
 	
 	@Autowired
-	EmployeeService service;
+	CustomerService service;
 	
 	@Autowired
 	JwtService jwtService;
@@ -37,28 +35,28 @@ public class EmployeeController {
 	AuthenticationManager authenticationManager;
 		
 	@GetMapping("/getAll")
-	public List<Employee> getAll(){ 
+	public List<Customer> getAll(){ 
 		return service.getAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Optional<Employee> getById(@PathVariable Integer id){ 
+	public Optional<Customer> getById(@PathVariable Integer id){ 
 		return service.getById(id);
 	}
 	
 	@PostMapping("/register")
-	public Employee addEmployee(@RequestBody Employee employee) {
-		return service.save(employee);
+	public Customer addEmployeeCustomer(@RequestBody Customer customer) {
+		return service.save(customer);
 	}
 	
 	@PostMapping("/login")  
-	public String login(@RequestBody Employee emp) {
+	public String login(@RequestBody Customer customer) {
 		Authentication auth=authenticationManager
-		.authenticate(new UsernamePasswordAuthenticationToken(emp.getUsername(), emp.getPassword()));
+		.authenticate(new UsernamePasswordAuthenticationToken(customer.getUsername(), customer.getPassword()));
 		if(auth.isAuthenticated())
-			return jwtService.generateToken(emp.getUsername());
+			return jwtService.generateToken(customer.getUsername());
 		else
-		return "Failure";
+		return "Failure to genrate token";
 	
 	}
 	
@@ -68,7 +66,9 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/hello")
-	public String hello(HttpServletRequest request) {  return "Hello: "+request.getRequestedSessionId(); }
+	public String hello(HttpServletRequest request) {  
+		return "Hello: "+request.getRequestedSessionId(); 
+	}
 	
 	
 
