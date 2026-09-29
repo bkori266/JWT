@@ -19,20 +19,17 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public Customer save(Customer customer) {
-		Customer repoCustomer=repo.findByUsername(customer.getUsername());
-	
-	
+		Customer repoCustomer=repo.findByUsername(customer.getUsername());	
 		if(repoCustomer==null) {
 			List<Customer> listRepoCustomer=repo.findByMobileNumber(customer.getMobileNumber());
 			if(listRepoCustomer.stream().count()==0) {
 				customer.setPassword(encoder.encode(customer.getPassword()));
-			return repo.save(customer);
+			    return repo.save(customer);
 			}
 			else {
 				throw new RuntimeException("Mobile number already used");
 			}
-			
-				
+					
 		}
 		
 		else {

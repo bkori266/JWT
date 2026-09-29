@@ -49,6 +49,7 @@ public class JwtService {
 		return claimResolver.apply(claims);
 	}
 
+	
 	private Claims extractAllClaims(String token) {
 		// TODO Auto-generated method stub
 		return Jwts.parserBuilder()

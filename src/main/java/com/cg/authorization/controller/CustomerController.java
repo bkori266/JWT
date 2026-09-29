@@ -49,14 +49,14 @@ public class CustomerController {
 		return service.save(customer);
 	}
 	
-	@PostMapping("/login")  
+	@PostMapping("/login") 
 	public String login(@RequestBody Customer customer) {
 		Authentication auth=authenticationManager
 		.authenticate(new UsernamePasswordAuthenticationToken(customer.getUsername(), customer.getPassword()));
 		if(auth.isAuthenticated())
 			return jwtService.generateToken(customer.getUsername());
 		else
-		return "Failure to genrate token";
+		return "Failure to generate token";
 	
 	}
 	
